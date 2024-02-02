@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import generateParagraph from "./helper/GenerateParagraph";
+import playErrorSound from "./helper/ErrorSound";
+import playClickSound from "./helper/ClickSound";
 
 export const Reducers = createSlice({
   name: "Reducers",
@@ -10,7 +12,7 @@ export const Reducers = createSlice({
     index: 0,
     started: false,
     wrongIndexes: [],
-    finished: false
+    finished: false,
   },
   reducers: {
     setParagraph: (state) => {
@@ -24,51 +26,54 @@ export const Reducers = createSlice({
     },
 
     setInputText: (state, action) => {
-
       state.input = action.payload;
       state.started = true;
-      if(!state.started) {
+      if (!state.started) {
         state.started = true;
       }
       const arr = state.para[state.index].join("");
       state.wrongIndexes = [];
-      
-      
+
+      let errorFound = false;
       if (state.input[state.input.length - 1] === " ") {
-
-        if(arr+" " === state.input){
-
+        if (arr + " " === state.input) {
           state.index += 1;
           state.input = "";
           state.wrongIndexes = [];
-        }
-        else {
+        } else {
           state.input = state.input.slice(0, -1);
+          errorFound = true;
         }
       }
 
-      if(arr.length < state.input.length) {
+      if (arr.length < state.input.length) {
         state.input = state.input.slice(0, -1);
+        errorFound = true;
       }
-      
-      for(let i=0;i<state.input.length;i++) {
-        if(arr[i] !== state.input[i])
-        {
+
+      for (let i = 0; i < state.input.length; i++) {
+        if (arr[i] !== state.input[i]) {
           state.wrongIndexes.push(i);
+          errorFound = true;
         }
       }
-      
+
+      if (errorFound) {
+        playErrorSound();
+      } else {
+        playClickSound();
+      }
     },
-    setTimer : (state, action) => {
+    setTimer: (state, action) => {
       state.timer = action.payload;
-      if(state.timer === 0 || state.index === 60) {
+      if (state.timer === 0 || state.index === 60) {
         state.started = false;
         state.finished = true;
-        state.input = ""
+        state.input = "";
       }
-    }
+    },
   },
 });
 
-export const { setParagraph, setInputText , setTimer} = Reducers.actions;
+export const { setParagraph, setInputText, setTimer } = Reducers.actions;
 export default Reducers.reducer;

@@ -15,15 +15,20 @@ export default function Header() {
       return dispatch(setParagraph());
     }
   });
+  window.addEventListener("keydown", (e) => {
+    console.log(e.key);
+    if (e.key === "Ctrl" && e.key === "Backspace") {
+      e.preventDefault();
+      return;
+    }
+  });
 
   useEffect(() => {
-    if(started) {
-
+    if (started) {
       const intervalID = setInterval(() => {
-        // console
         dispatch(setTimer(timer - 1));
       }, 1000);
-      
+
       return () => clearInterval(intervalID); // Clear interval on component unmount
     } else {
       setTimer(30);

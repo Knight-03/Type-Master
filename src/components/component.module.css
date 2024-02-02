@@ -22,6 +22,7 @@ body {
   font-size: 1.8em;
   word-spacing: 0.15em;
   line-height: 1.3em;
+  user-select: none
 }
 .textArea {
   padding: 20px;
@@ -66,19 +67,19 @@ body {
   box-shadow: rgb(255, 188, 144) 0px 0px 100px -40px;
 }
 .resultBox > p {
-    font-size: 3rem;
-    padding: 0.6em ;
-    text-align: center;
-    text-decoration: underline;
+  font-size: 3rem;
+  padding: 0.6em;
+  text-align: center;
+  text-decoration: underline;
 }
 .result {
-    display: flex;
-    justify-content: space-around;
-    align-items: left;
+  display: flex;
+  justify-content: space-around;
+  align-items: left;
 }
 .result > p {
-    margin: 0;
-    padding: 0px 30px;
-    font-size: 2rem;
-    text-align: left;
+  margin: 0;
+  padding: 0px 30px;
+  font-size: 2rem;
+  text-align: left;
 }

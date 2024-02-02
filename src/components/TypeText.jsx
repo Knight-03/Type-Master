@@ -8,6 +8,7 @@ export default function TypeText() {
   const started = useSelector((state) => state.myReducer.started);
   const wrongIndexes = useSelector((state) => state.myReducer.wrongIndexes);
   const input = useSelector((state) => state.myReducer.input);
+
   return (
     <div>
       <p className={style.paragraph}>
